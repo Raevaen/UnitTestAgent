@@ -1,0 +1,27 @@
+name: Code Coverage
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  coverage:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+      
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 8.0
+      
+      - name: Restore Dependencies
+        run: dotnet restore
+      
+      - name: Run Tests with Coverage
+        run: |
+          chmod +x scripts/codecoverage.sh
+          ./scripts/codecoverage.sh
+# linux server
